@@ -2,7 +2,7 @@ import React from "react";
 import Book from './Book'
 
 const Bookshelf = ({
-  title, books, moveShelf, id
+  title, books, moveShelf
 }) => (
   <div className='bookshelf'>
     <h2 className='bookshelf-title'>{title}</h2>
@@ -17,6 +17,7 @@ const Bookshelf = ({
               moveShelf={moveShelf}
               key={index}
               id={book.id}
+              currentShelf={book.shelf}
             />
           )}
         </li>

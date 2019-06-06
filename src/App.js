@@ -10,50 +10,92 @@ class BooksApp extends React.Component {
     searchInput: "",
     books: [
       {
-        title: 'Title',
-        author: ['Author'],
+        title: "Title1",
+        author: ["Author1"],
         id: 1,
-        shelf: 'read'
+        shelf: "currentlyReading"
+      },
+      {
+        title: "Title2",
+        author: ["Author2"],
+        id: 2,
+        shelf: "wantToRead"
+      },
+      {
+        title: "Title3",
+        author: ["Author3"],
+        id: 3,
+        shelf: "read"
       }
     ],
-    searchBooks: null
+    searchBooks: [
+      {
+        title: "Title1",
+        author: ["Author1"],
+        id: 1,
+      },
+      {
+        title: "Title2",
+        author: ["Author2"],
+        id: 2,
+      },
+      {
+        title: "Title3",
+        author: ["Author3"],
+        id: 3,
+      }
+    ]
   };
 
   updateSearchInput = event => {
-    this.setState({
-      searchInput: event.target.value
-    })
+    //TODO: add functionality to add books from state ('books'-- to keep shelf) to 'searchBooks' if they appear in the search result
+    // update; check if it works
+    // note: could maybe use booksapi.get to do this?
+  /*
     BooksAPI.search(event.target.value).then(books => {
-      console.log('here')
+      console.log("here");
+      this.setState(prevState => {
+        const newSearchedBooks = books.map(book => prevState.books.map(prevBook => book.id === prevBook.id))
+        newSearchedBooks.forEach(book => prevState.books.map(prevBook => book.id = prevBook.id))
+        return {
+          searchInput: event.target.value,
+          searchBooks: [newSearchedBooks, ...books]
+        };
+      });
+    });
+    */
+    const input=event.target.value;
+    this.setState(prevState => {
+      const newSearchBooks = prevState.searchBooks.map(book => prevState.books.map(prevBook => book.id === prevBook.id))
+      newSearchBooks.forEach(book => prevState.books.map(prevBook => book.id = prevBook.id))
+      newSearchBooks.forEach(book => console.log(`bookid: ${book.id}`))
+      return {
+        searchInput: input,
+        searchBooks: [...newSearchBooks, ...prevState.searchBooks]
+      };
+    });
+  };
+
+  moveShelf = (book, shelf) => {
+    //const newShelf = event.target.value
+    book.shelf=shelf
+    BooksAPI.update(book, shelf).then(books => {
       this.setState(() => ({
-        searchBooks: books
+        books: this.state.books
+        .filter(b => b.id !== book.id)
+        .concat(book)
       }));
     });
-  }
-
-  moveShelf = (event, bookId) => {  
-    const newShelf=event.target.value;
-    //console.log(`book shelf: ${this.state.books[0].shelf}`)
-    //console.log(`oldShelf: ${this.state.books.filter(book => 
-    //  book.id === bookId
-    //).shelf}`); 
-    //console.log(`newShelf: ${newShelf}`); 
-
-    BooksAPI.update({id: bookId}, newShelf).then(books => {
-      this.setState(() => ({
-        books
-      }));
-    });
-
-
-    this.state.books.filter(book => 
-      book.id === bookId
-    ).shelf=newShelf
-
+    
+    /*const newBook = this.state.books.filter(book => book.id === bookId);
+    newBook[0].shelf = newShelf;
+    const oldBooks = this.state.books.filter(book => book.id !== bookId);
+    const newBooks = [newBook[0], ...oldBooks];
     this.setState({
-      books: this.state.books
-    })
-  }
+      books: newBooks
+    });
+    */
+  };
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
@@ -64,7 +106,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { searchInput, searchBooks } = this.state;
+    const { searchInput, searchBooks, books } = this.state;
     return (
       <div className='app'>
         <Route
@@ -80,11 +122,7 @@ class BooksApp extends React.Component {
         <Route
           exact
           path='/'
-          render={() => 
-            <Shelves 
-              books={this.state.books}
-              moveShelf={this.moveShelf}
-            />}
+          render={() => <Shelves books={books} moveShelf={this.moveShelf} />}
         />
       </div>
     );

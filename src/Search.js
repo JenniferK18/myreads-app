@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Book from "./Book";
 
 const Search = ({
-  input, handleUpdate, searchBooks
+  input, handleUpdate, books
 }) => (
   <div className='search-books'>
     <div className='search-books-bar'>
@@ -30,7 +30,7 @@ const Search = ({
     <div className='search-books-results'>
       <ol className='books-grid'>
         <li>
-          {searchBooks && searchBooks.map(book => <Book title={book.title} author={book.author} backgroundImage={book.backgroundImage}/>)}
+          {books.map(book => <Book title={book.title} author={book.author} backgroundImage={book.backgroundImage}/>)}
         </li>
       </ol>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Book = ({
-  title, author, id, backgroundImage, moveShelf
+  title, author, id, backgroundImage, moveShelf, currentShelf
 }) => (
   <div className='book'>
     <div className='book-top'>
@@ -14,7 +14,17 @@ const Book = ({
         }}
       />
       <div className='book-shelf-changer'>
-        <select onChange={event => moveShelf(event, id)}>
+      <select 
+      onChange={() => moveShelf(
+        {
+          title: title,
+          author: author,
+          backgroundImage: backgroundImage,
+          id: id
+        }, currentShelf
+      )}
+      value={currentShelf}
+    >
           <option value='move' disabled>
             Move to...
           </option>
