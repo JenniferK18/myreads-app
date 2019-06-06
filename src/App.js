@@ -73,14 +73,14 @@ class BooksApp extends React.Component {
   };
 
   moveShelf = (book, shelf) => {
-    //const newShelf = event.target.value
     book.shelf = shelf;
     BooksAPI.update(book, shelf).then(() => {
-      this.setState(() => ({
-        books: this.state.books.filter(b => b.id !== book.id).concat(book)
+      this.setState((prevState) => ({
+        books: prevState.books.filter(b => b.id !== book.id).concat(book)
       }));
     });
 
+    //const newShelf = event.target.value
     /*const newBook = this.state.books.filter(book => book.id === bookId);
     newBook[0].shelf = newShelf;
     const oldBooks = this.state.books.filter(book => book.id !== bookId);

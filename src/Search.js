@@ -37,6 +37,7 @@ const Search = ({
               backgroundImage={book.backgroundImage} 
               key={index}
               moveShelf={(shelf) => moveShelf(book, shelf)}
+              currentShelf={book.shelf}
             />
           )}
         </li>
