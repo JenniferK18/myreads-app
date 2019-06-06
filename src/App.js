@@ -49,38 +49,33 @@ class BooksApp extends React.Component {
 
   updateSearchInput = event => {
 
-    /*BooksAPI.search(event.target.value).then(books => {
-      this.setState(prevState => {
-        prevState.searchBooks.map(
+    const input=event.target.value
+    /*
+    BooksAPI.search(input).then(books => {
+      this.setState(prevState => ({
+        searchBooks: prevState.searchBooks.map(
           searchBook =>
             prevState.books.filter(book => searchBook.id === book.id)[0] ||
             searchBook
-        );
-      });
+        ),
+        searchInput: input
+      }));
     });
     */
-    this.setState(prevState => {
-      prevState.searchBooks.map(
+    this.setState(prevState => ({
+      searchBooks: prevState.searchBooks.map(
         searchBook =>
           prevState.books.filter(book => searchBook.id === book.id)[0] ||
           searchBook
-      );
-    });
-
-    /*const newBooks = this.state.searchBooks.map(searchBook => (
-      this.state.books.filter(book => (searchBook.id === book.id))[0] || searchBook
-    ))
-
-    this.setState({
-      searchBooks: newBooks
-    })
-    */
+      ),
+      searchInput: input
+    }));
   };
 
   moveShelf = (book, shelf) => {
     //const newShelf = event.target.value
     book.shelf = shelf;
-    BooksAPI.update(book, shelf).then(books => {
+    BooksAPI.update(book, shelf).then(() => {
       this.setState(() => ({
         books: this.state.books.filter(b => b.id !== book.id).concat(book)
       }));
@@ -115,6 +110,7 @@ class BooksApp extends React.Component {
               handleUpdate={this.updateSearchInput}
               input={searchInput}
               books={searchBooks}
+              moveShelf={this.moveShelf}
             />
           )}
         />

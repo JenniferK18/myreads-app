@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Book from "./Book";
 
 const Search = ({
-  input, handleUpdate, books
+  input, handleUpdate, books, moveShelf
 }) => (
   <div className='search-books'>
     <div className='search-books-bar'>
@@ -36,6 +36,7 @@ const Search = ({
               author={book.author} 
               backgroundImage={book.backgroundImage} 
               key={index}
+              moveShelf={(shelf) => moveShelf(book, shelf)}
             />
           )}
         </li>
