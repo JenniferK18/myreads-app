@@ -30,7 +30,14 @@ const Search = ({
     <div className='search-books-results'>
       <ol className='books-grid'>
         <li>
-          {books.map(book => <Book title={book.title} author={book.author} backgroundImage={book.backgroundImage}/>)}
+          {books.map((book, index) => 
+            <Book 
+              title={book.title}
+              author={book.author} 
+              backgroundImage={book.backgroundImage} 
+              key={index}
+            />
+          )}
         </li>
       </ol>
     </div>

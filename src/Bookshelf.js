@@ -14,7 +14,7 @@ const Bookshelf = ({
               title={book.title} 
               author={book.author} 
               backgroundImage={book.backgroundImage} 
-              moveShelf={moveShelf}
+              moveShelf={(shelf) => moveShelf(book, shelf)}
               key={index}
               id={book.id}
               currentShelf={book.shelf}

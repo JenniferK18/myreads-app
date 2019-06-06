@@ -32,61 +32,60 @@ class BooksApp extends React.Component {
       {
         title: "Title1",
         author: ["Author1"],
-        id: 1,
+        id: 1
       },
       {
         title: "Title2",
         author: ["Author2"],
-        id: 2,
+        id: 2
       },
       {
         title: "Title3",
         author: ["Author3"],
-        id: 3,
+        id: 4
       }
     ]
   };
 
   updateSearchInput = event => {
-    //TODO: add functionality to add books from state ('books'-- to keep shelf) to 'searchBooks' if they appear in the search result
-    // update; check if it works
-    // note: could maybe use booksapi.get to do this?
-  /*
-    BooksAPI.search(event.target.value).then(books => {
-      console.log("here");
+
+    /*BooksAPI.search(event.target.value).then(books => {
       this.setState(prevState => {
-        const newSearchedBooks = books.map(book => prevState.books.map(prevBook => book.id === prevBook.id))
-        newSearchedBooks.forEach(book => prevState.books.map(prevBook => book.id = prevBook.id))
-        return {
-          searchInput: event.target.value,
-          searchBooks: [newSearchedBooks, ...books]
-        };
+        prevState.searchBooks.map(
+          searchBook =>
+            prevState.books.filter(book => searchBook.id === book.id)[0] ||
+            searchBook
+        );
       });
     });
     */
-    const input=event.target.value;
     this.setState(prevState => {
-      const newSearchBooks = prevState.searchBooks.map(book => prevState.books.map(prevBook => book.id === prevBook.id))
-      newSearchBooks.forEach(book => prevState.books.map(prevBook => book.id = prevBook.id))
-      newSearchBooks.forEach(book => console.log(`bookid: ${book.id}`))
-      return {
-        searchInput: input,
-        searchBooks: [...newSearchBooks, ...prevState.searchBooks]
-      };
+      prevState.searchBooks.map(
+        searchBook =>
+          prevState.books.filter(book => searchBook.id === book.id)[0] ||
+          searchBook
+      );
     });
+
+    /*const newBooks = this.state.searchBooks.map(searchBook => (
+      this.state.books.filter(book => (searchBook.id === book.id))[0] || searchBook
+    ))
+
+    this.setState({
+      searchBooks: newBooks
+    })
+    */
   };
 
   moveShelf = (book, shelf) => {
     //const newShelf = event.target.value
-    book.shelf=shelf
+    book.shelf = shelf;
     BooksAPI.update(book, shelf).then(books => {
       this.setState(() => ({
-        books: this.state.books
-        .filter(b => b.id !== book.id)
-        .concat(book)
+        books: this.state.books.filter(b => b.id !== book.id).concat(book)
       }));
     });
-    
+
     /*const newBook = this.state.books.filter(book => book.id === bookId);
     newBook[0].shelf = newShelf;
     const oldBooks = this.state.books.filter(book => book.id !== bookId);
