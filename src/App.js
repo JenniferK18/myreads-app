@@ -50,19 +50,18 @@ class BooksApp extends React.Component {
   updateSearchInput = event => {
 
     const input=event.target.value
-    /*
+    
     BooksAPI.search(input).then(books => {
       this.setState(prevState => ({
-        searchBooks: prevState.searchBooks.map(
-          searchBook =>
+        searchBooks: books.map(searchBook =>
             prevState.books.filter(book => searchBook.id === book.id)[0] ||
             searchBook
         ),
         searchInput: input
       }));
     });
-    */
-    this.setState(prevState => ({
+    
+    /*this.setState(prevState => ({
       searchBooks: prevState.searchBooks.map(
         searchBook =>
           prevState.books.filter(book => searchBook.id === book.id)[0] ||
@@ -70,12 +69,13 @@ class BooksApp extends React.Component {
       ),
       searchInput: input
     }));
+    */
   };
 
   moveShelf = (book, shelf) => {
     book.shelf = shelf;
     BooksAPI.update(book, shelf).then(() => {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         books: prevState.books.filter(b => b.id !== book.id).concat(book)
       }));
     });
