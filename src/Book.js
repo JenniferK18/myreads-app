@@ -33,7 +33,7 @@ const Book = ({
       </div>
     </div>
     <div className='book-title'>{title}</div>
-    {author.map(indAuthor => <div className='book-authors'>{indAuthor}</div>)}
+    {author && author.map(indAuthor => <div className='book-authors'>{indAuthor}</div>)}
   </div>
 );
 
