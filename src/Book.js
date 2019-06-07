@@ -21,7 +21,6 @@ const Book = ({
         <select
           onChange={() => moveShelf(currentShelf)}
           value={currentShelf}
-          defaultValue='none'
         >
           <option value='move' disabled>
             Move to...
@@ -29,7 +28,7 @@ const Book = ({
           <option value='currentlyReading'>Currently Reading</option>
           <option value='wantToRead'>Want to Read</option>
           <option value='read'>Read</option>
-          <option value='none'>None</option>
+          <option value=''>None</option>
         </select>
       </div>
     </div>
