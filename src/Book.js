@@ -2,7 +2,7 @@ import React from "react";
 
 const Book = ({
   title,
-  author,
+  authors,
   backgroundImage,
   moveShelf,
   currentShelf
@@ -33,7 +33,7 @@ const Book = ({
       </div>
     </div>
     <div className='book-title'>{title}</div>
-    <div className='book-authors'>{author}</div>
+    {authors.map(author => <div className='book-authors'>{author}</div>)}
   </div>
 );
 

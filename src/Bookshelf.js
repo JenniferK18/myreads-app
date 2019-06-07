@@ -12,7 +12,7 @@ const Bookshelf = ({
           {books.map((book, index) => 
             <Book 
               title={book.title} 
-              author={book.author} 
+              authors={book.authors} 
               backgroundImage={book.backgroundImage} 
               moveShelf={(shelf) => moveShelf(book, shelf)}
               key={index}

@@ -11,7 +11,7 @@ class BooksApp extends React.Component {
     books: [
       {
         title: "Title1",
-        author: ["Author1"],
+        author: ["Author1", "Author2"],
         id: 1,
         shelf: "currentlyReading"
       },
@@ -31,7 +31,7 @@ class BooksApp extends React.Component {
     searchBooks: [
       {
         title: "Title1",
-        author: ["Author1"],
+        author: ["Author1", "Author2"],
         id: 1
       },
       {
