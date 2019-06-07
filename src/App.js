@@ -8,68 +8,22 @@ import { Route } from "react-router-dom";
 class BooksApp extends React.Component {
   state = {
     searchInput: "",
-    books: [
-      {
-        title: "Title1",
-        author: ["Author1", "Author2"],
-        id: 1,
-        shelf: "currentlyReading"
-      },
-      {
-        title: "Title2",
-        author: ["Author2"],
-        id: 2,
-        shelf: "wantToRead"
-      },
-      {
-        title: "Title3",
-        author: ["Author3"],
-        id: 3,
-        shelf: "read"
-      }
-    ],
-    searchBooks: [
-      {
-        title: "Title1",
-        author: ["Author1", "Author2"],
-        id: 1
-      },
-      {
-        title: "Title2",
-        author: ["Author2"],
-        id: 2
-      },
-      {
-        title: "Title3",
-        author: ["Author3"],
-        id: 4
-      }
-    ]
+    books: [],
+    searchBooks: []
   };
 
   updateSearchInput = event => {
-
-    const input=event.target.value
-    
-    BooksAPI.search(input).then(books => {
-      this.setState(prevState => ({
-        searchBooks: books.map(searchBook =>
+    const input = event.target.value
+    input === '' ? this.setState({ searchBooks: [], searchInput: input }) :
+      BooksAPI.search(input).then(books => {
+        this.setState(prevState => ({
+          searchBooks: Array.isArray(books) ? books.map(searchBook =>
             prevState.books.filter(book => searchBook.id === book.id)[0] ||
             searchBook
-        ),
-        searchInput: input
-      }));
-    });
-    
-    /*this.setState(prevState => ({
-      searchBooks: prevState.searchBooks.map(
-        searchBook =>
-          prevState.books.filter(book => searchBook.id === book.id)[0] ||
-          searchBook
-      ),
-      searchInput: input
-    }));
-    */
+          ) : [],
+          searchInput: input
+        }));
+      });
   };
 
   moveShelf = (book, shelf) => {
@@ -79,16 +33,6 @@ class BooksApp extends React.Component {
         books: prevState.books.filter(b => b.id !== book.id).concat(book)
       }));
     });
-
-    //const newShelf = event.target.value
-    /*const newBook = this.state.books.filter(book => book.id === bookId);
-    newBook[0].shelf = newShelf;
-    const oldBooks = this.state.books.filter(book => book.id !== bookId);
-    const newBooks = [newBook[0], ...oldBooks];
-    this.setState({
-      books: newBooks
-    });
-    */
   };
 
   componentDidMount() {
@@ -101,6 +45,7 @@ class BooksApp extends React.Component {
 
   render() {
     const { searchInput, searchBooks, books } = this.state;
+    console.log(books)
     return (
       <div className='app'>
         <Route
