@@ -14,7 +14,7 @@ const Book = ({
         style={{
           width: 128,
           height: 193,
-          backgroundImage: { backgroundImage }
+          backgroundImage: `url("${backgroundImage}")`
         }}
       />
       <div className='book-shelf-changer'>
