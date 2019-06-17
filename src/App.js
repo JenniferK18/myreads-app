@@ -45,7 +45,6 @@ class BooksApp extends React.Component {
 
   render() {
     const { searchInput, searchBooks, books } = this.state;
-    console.log(books)
     return (
       <div className='app'>
         <Route

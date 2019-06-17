@@ -20,8 +20,7 @@ const Book = ({
         <div className='book-shelf-changer'>
           <select
             onChange={(event) => moveShelf(event.target.value)}
-            value={currentShelf}
-            defaultValue='none'
+            value={currentShelf || 'none'}
           >
             <option value='move' disabled>
               Move to...
