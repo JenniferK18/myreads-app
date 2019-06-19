@@ -15,13 +15,13 @@ class BooksApp extends React.Component {
   updateSearchInput = event => {
     const input = event.target.value
     input === '' ? this.setState({ searchBooks: [], searchInput: input }) :
+    this.setState({searchInput: input})
       BooksAPI.search(input).then(books => {
         this.setState(prevState => ({
           searchBooks: Array.isArray(books) ? books.map(searchBook =>
             prevState.books.filter(book => searchBook.id === book.id)[0] ||
             searchBook
           ) : [],
-          searchInput: input
         }));
       });
   };
